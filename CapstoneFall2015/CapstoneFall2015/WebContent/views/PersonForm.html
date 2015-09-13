@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="col-lg-8">
+        <form id="testForm" class="form-horizontal" data-toggle="validator" action="/CapstoneFall2015/Person/Add" method="post">
+            <div class="">        
+                <div style="padding-top: 50px;">
+                    <fieldset>
+                    <legend>Example Form</legend>
+                    	${Message}
+        				<input type='hidden' name='PersonID' class='form-control' id='id' value="${PersonID}"/>
+                        <div class="form-group">
+                            <label for="inputName" class="col-lg-4 control-label">First Name</label>
+                            <div class="col-lg-6">
+                                <input type="text" name="FirstName" class="form-control" id="txtFirstName" placeholder="First name"  data-error="First name is required" value="${FirstName}" />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputLastName" class="col-lg-4 control-label">Last Name</label>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" id="txtLastName" name="LastName" placeholder="Last Name"  data-error="Last name is required"  value="${LastName}" required/>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>                                
+                        <div class="form-group">
+                            <label for="inputGender" class="col-lg-4 control-label">Gender</label>
+                            <div class="col-lg-8">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="Gender" id="radM" value="M"  />
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="Gender" id="radF" value="F"  />
+                                        Female
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="Gender" id="radU" value="U"  />
+                                        Unreported
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputState" class="col-lg-4 control-label">State</label>
+                            <div class="col-lg-6">
+                                <select class="form-control" id="ddlState" name='State' data-error="State is required" required>
+                                    <option value="" style="display:none"></option>
+									<option value="Wisconsin" >Wisconsin</option>
+									<option value="Other" >Other</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputZip" class="col-lg-4 control-label">Zip</label>
+                            <div class="col-lg-6">
+                                <input name='Zip' type="text" pattern="^\d{5}(?:[-\s]\d{4})?$" class="form-control" id="txtZip" placeholder="Zip"  data-error="Zip is required - 12345 OR 12345-6789"  value="${Zip}" required/>
+                                <div class="help-block with-errors">12345 OR 12345-6789</div>
+                            </div>
+                        </div>  
+                        <div class="form-group">
+                            <label for="inputEmailAddress" class="col-lg-4 control-label">Email Address</label>
+                            <div class="col-lg-6">
+                                <input type="email" name='EmailAddress' class="form-control" id="txtEmailAddress" placeholder="Email Address"  data-error="Email is required - test@example.com"  value="${EmailAddress}" required/>
+                                <div class="help-block with-errors">test@example.com</div>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <label for="inputPhoneNumber" class="col-lg-4 control-label">Phone Number</label>
+                            <div class="col-lg-6">
+                                <input type="tel" name='PhoneNumber' pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$" class="form-control" id="txtPhoneNumber" placeholder="Phone Number"  data-error="10 Digit Phone Number is required"  value="${PhoneNumber}" required/>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div> 
+ 						<div class="form-group">
+                            <label for="inputBirthday" class="col-lg-4 control-label">Birthday</label>
+                            <div class="col-lg-6">
+                                <input type="date" name='Birthday' class="form-control" id="txtBirthday" placeholder="Birthday"  data-error="Birthday is required" value="${Birthday}" required/>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="col-lg-8 col-lg-offset-4">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>                        
+                    </fieldset>
+                </div>         
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+	function selectState(state)
+	{
+		for(var i = 0;i < document.getElementById("ddlState").length;i++)
+		{
+            if(document.getElementById("ddlState").options[i].value == state)
+            {
+            	document.getElementById("ddlState").selectedIndex = i;
+            }
+        }
+	}
+	function selectGender(gender)
+	{
+		document.getElementById('rad' + gender).checked = true;
+	}
+	${Script}
+</script>
