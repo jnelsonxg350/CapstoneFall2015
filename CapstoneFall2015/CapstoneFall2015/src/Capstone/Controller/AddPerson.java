@@ -1,6 +1,7 @@
 package Capstone.Controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +18,6 @@ public class AddPerson extends HttpServlet
     public AddPerson() 
     {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -41,7 +41,7 @@ public class AddPerson extends HttpServlet
 			valid = false;			
 		}
 		else
-		{
+		{			
 			p.setFirstName(request.getParameter("FirstName"));
 		}
 		if(request.getParameter("LastName") == null || request.getParameter("LastName").isEmpty())
@@ -120,8 +120,8 @@ public class AddPerson extends HttpServlet
 			{
 				CapstoneFall2015DB db = new CapstoneFall2015DB();
 				db.updatePerson(p);
-			}
-		}		
+			}			
+		}				
 	}
 
 }

@@ -135,15 +135,13 @@ public class CapstoneFall2015DB
             }
         }        
     }
-   
     public void updatePerson(Person p)
     {
         try
         {       
             con = dataSource.getConnection();
-            pst = con.prepareStatement("update people set firstname = '" + p.getFirstName() + "', lastname = '" + p.getLastName() + "', state = '" + p.getState() + "', zip = '" + p.getZip() + "', birthdate = '" + p.getBirthday().toString() + "', gender = '" + p.getGender() + "', phonenumber = '" + p.getPhoneNumber() + "', emailaddress = '" + p.getEmailAddress() + "' where peopleID = '" + p.getPersonID() + "';");
             con = dataSource.getConnection();
-            pst = con.prepareStatement("update set FirstName = ?,LastName = ?,Gender = ?,State = ?,Zip = ?,EmailAddress = ?,PhoneNumber = ?,Birthday = ? " +
+            pst = con.prepareStatement("update person set FirstName = ?,LastName = ?,Gender = ?,State = ?,Zip = ?,EmailAddress = ?,PhoneNumber = ?,Birthday = ? " +
             "where PersonID = ?;");
                         
             if(p.getFirstName() != null)
@@ -265,19 +263,19 @@ public class CapstoneFall2015DB
         try
         {       
             con = dataSource.getConnection();
-            pst = con.prepareStatement("select * from people;");
+            pst = con.prepareStatement("select * from person;");
             rs = pst.executeQuery();
 
             while (rs.next()) 
             {
                 Person p = new Person();
                 
-                p.setPersonID(rs.getInt("peopleID"));
+                p.setPersonID(rs.getInt("PersonID"));
                 p.setFirstName(rs.getString("firstname"));
                 p.setLastName(rs.getString("lastname"));
                 p.setState(rs.getString("state"));
                 p.setZip(rs.getString("zip"));
-                //p.setBirthDate(rs.getString("birthdate"));
+                p.setBirthday(rs.getDate("birthday"));
                 p.setGender(rs.getString("gender"));
                 p.setPhoneNumber(rs.getLong("phonenumber"));
                 p.setEmailAddress(rs.getString("emailaddress"));
@@ -318,7 +316,6 @@ public class CapstoneFall2015DB
         
         return people;
     }
-
     public Person getPerson(String id)
     {
         Person p = new Person();
@@ -326,7 +323,7 @@ public class CapstoneFall2015DB
         try
         {       
             con = dataSource.getConnection();
-            pst = con.prepareStatement("select * from people where peopleID = '" + id + "';");
+            pst = con.prepareStatement("select * from person where PersonID = '" + id + "';");
             rs = pst.executeQuery();
 
             while (rs.next()) 
@@ -336,7 +333,7 @@ public class CapstoneFall2015DB
                 p.setLastName(rs.getString("lastname"));
                 p.setState(rs.getString("state"));
                 p.setZip(rs.getString("zip"));
-                //p.setBirthDate(rs.getString("birthdate"));
+                p.setBirthday(rs.getDate("birthday"));
                 p.setGender(rs.getString("gender"));
                 p.setPhoneNumber(rs.getLong("phonenumber"));
                 p.setEmailAddress(rs.getString("emailaddress"));
@@ -374,12 +371,12 @@ public class CapstoneFall2015DB
         
         return p;
     }
-    public Person deletePerson(Person p)
+    public void deletePerson(String id)
     {        
         try
         {       
             con = dataSource.getConnection();
-            pst = con.prepareStatement("delete from people where peopleID = '" + p.getPersonID() + "';");            
+            pst = con.prepareStatement("delete from person where personID = '" + id + "';");  
             pst.executeUpdate();
         } 
         catch (SQLException ex) 
@@ -411,9 +408,7 @@ public class CapstoneFall2015DB
             }
         }
         
-        return p;
     }
-
     public Boolean isValidLogin(String username,String password)
     {
         Boolean valid = false;
@@ -465,7 +460,6 @@ public class CapstoneFall2015DB
         
         return valid;
     }
-    
 }
 
 

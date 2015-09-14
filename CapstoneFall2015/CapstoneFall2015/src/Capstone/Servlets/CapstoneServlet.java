@@ -45,8 +45,31 @@ public class CapstoneServlet extends HttpServlet
 		catch(Exception e)
 		{
 			html = "<div class='alert alert-danger' role='alert'><strong>There was a problem finding your HTML file!</strong><br/>";
-			html += e.getMessage() + "</div>";
+			html += e.getMessage() + "<br/>" + e.getStackTrace() + "</div>";
 		}
+		
+		//get the login bar and menu - these will be different if the user is logged in.
+		String loginBar = "<ul class='nav navbar-nav navbar-right'>";
+		String menu = "";
+		if(Utilz.isAuthorized(request, response))
+		{
+			loginBar += "<li><a href='/CapstoneFall2015/Login?logout=true'>Logout</a></li>";
+			 menu = "<li class='dropdown'>" +
+			        "<a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Users <span class='caret'></span></a>" +
+			        "<ul class='dropdown-menu'>" +
+			          "<li><a href='/CapstoneFall2015/PersonForm'>Add Person</a></li>" +    
+			          "<li><a href='/CapstoneFall2015/PersonList'>View People</a></li>" +
+			        "</ul>" +
+			      "</li>" +
+			      "<li><a href='#contact'>Single Link</a></li>";
+		}
+		else
+		{
+			loginBar += "<li><a href='/CapstoneFall2015/LoginForm'>Login</a></li>";
+		}
+		loginBar += "</ul>";
+		request.setAttribute("loginbar", loginBar);
+		request.setAttribute("menu", menu);
 		
 		//Set the body of the page
 		request.setAttribute("content", html);
